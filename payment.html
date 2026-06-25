@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0757d6" />
+  <title>Pay using UPI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="mobile-page payment-page">
+    <header class="jio-header">
+      <a class="back-button" href="plans.html" aria-label="Back">☰</a>
+      <span class="jio-logo">Jio</span>
+      <label class="search-box" aria-label="Search">
+        <input type="text" value="Search" readonly />
+        <span>⌕</span>
+      </label>
+      <button class="profile-button" type="button" aria-label="Profile">👤</button>
+    </header>
+
+    <main class="payment-main">
+      <section class="upi-card" aria-label="UPI payment options">
+        <h1>Pay ₹<span id="payAmount">239</span> using UPI</h1>
+
+        <button class="upi-option" type="button" data-app="upi" data-vpa="merchant@upi" data-name="Jio Recharge">
+          <span class="upi-icon">💳</span>
+          <span class="upi-option-copy">
+            <strong>Any UPI App</strong>
+            <small>GPay, PhonePe, Paytm, etc.</small>
+          </span>
+          <span class="upi-amount">₹<span class="optionAmount">239</span></span>
+        </button>
+
+        <p class="payment-note" id="paymentNote">Selecting an option opens your UPI app (GPay, PhonePe, Paytm, etc.) with a real payment request. Ensure your default UPI app is installed.</p>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
