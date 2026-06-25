@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0757d6" />
+  <title>Jio Style Home Page Clone</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="mobile-page">
+    <header class="jio-header">
+      <button class="icon-button" type="button" aria-label="Open menu">☰</button>
+
+      <a class="brand" href="#" aria-label="Jio home">
+        <span class="jio-logo">Jio</span>
+      </a>
+
+      <label class="search-box" aria-label="Search">
+        <span>⌕</span>
+        <input type="text" value="Search" readonly />
+      </label>
+
+      <button class="profile-button" type="button" aria-label="Profile">👤</button>
+    </header>
+
+    <main>
+      <section class="hero-banner">
+        <div class="hero-copy">
+          <p>JioCinema</p>
+          <h1>The best things in life are FREE</h1>
+          <a href="#recharge">Join now</a>
+        </div>
+        <div class="hero-person" aria-hidden="true"></div>
+      </section>
+
+      <section class="recharge-card" id="recharge">
+        <div class="card-title">
+          <span class="tiny-phone">▣</span>
+          <strong>Mobile Recharge</strong>
+        </div>
+
+        <div class="service-tabs" aria-label="Choose mobile operator">
+          <button class="active" type="button" data-operator="Jio" aria-pressed="true">
+            <span class="mini-logo red">Jio</span>
+            Jio
+          </button>
+          <button type="button" data-operator="Airtel" aria-pressed="false">
+            <span class="mini-logo coral">A</span>
+            Airtel
+          </button>
+          <button type="button" data-operator="Vi" aria-pressed="false">
+            <span class="mini-logo pink">Vi</span>
+            Vi
+          </button>
+          <button type="button" data-operator="BSNL" aria-pressed="false">
+            <span class="mini-logo pale">B</span>
+            BSNL
+          </button>
+        </div>
+
+        <div class="number-box">
+          <div class="plan-toggle">
+            <button class="selected" type="button">Prepaid</button>
+            <button type="button">Postpaid</button>
+          </div>
+          <input id="mobileNumber" type="tel" inputmode="numeric" maxlength="10" placeholder="Enter mobile number" aria-label="Enter mobile number" />
+        </div>
+
+        <p class="recharge-hint" id="rechargeHint">Recharge with ₹239 or above to unlock 5G unlimited.</p>
+        <button class="primary-cta" id="rechargeButton" type="button">Recharge</button>
+      </section>
+
+      <section class="quick-links" aria-label="Popular services">
+        <a href="#recharge">
+          <span>▣</span>
+          Recharge
+        </a>
+        <a href="#devices">
+          <span>₹</span>
+          Pay Bills
+        </a>
+        <a href="#discover">
+          <span>▤</span>
+          Get Jio SIM
+        </a>
+        <a href="#connectivity">
+          <span>▥</span>
+          Port to Jio
+        </a>
+        <a href="#discover">
+          <span>⌁</span>
+          Jio AirFiber
+        </a>
+        <a href="#guidance">
+          <span>?</span>
+          Support
+        </a>
+      </section>
+
+      <section class="story-card entertainment">
+        <div class="story-image" aria-hidden="true"></div>
+        <h2>Go for unlimited entertainment</h2>
+        <p>Movies, TV shows, sports, and music in one smooth Jio-style experience.</p>
+      </section>
+
+      <section class="story-card connectivity" id="connectivity">
+        <div class="story-image" aria-hidden="true"></div>
+        <h2>High-speed, reliable connectivity</h2>
+        <p>Power your home, work, streaming, and learning with fast digital services.</p>
+      </section>
+
+      <section class="discover-section" id="discover">
+        <h2>Discover more with Jio</h2>
+
+        <article class="esim-card">
+          <div>
+            <h3>Activate Jio eSIM through SMS</h3>
+            <p>Request eSIM from your phone in just a few simple steps.</p>
+            <a href="#">Know more</a>
+          </div>
+        </article>
+
+        <div class="slider-dots" aria-hidden="true">
+          <span class="active"></span>
+          <span></span>
+          <span></span>
+        </div>
+      </section>
+
+      <div class="dot-divider" aria-hidden="true"></div>
+
+      <section class="devices-section" id="devices">
+        <p class="section-kicker">In the spotlight</p>
+        <h2>Latest and trending devices</h2>
+        <p class="section-copy">Get the best deals on all the latest devices on your next Jio upgrade.</p>
+
+        <div class="device-list">
+          <article class="device-card">
+            <span class="offer-badge">₹500 cashback</span>
+            <div class="device-visual phone-device" aria-hidden="true"></div>
+            <h3>JioPhone Next</h3>
+            <p>At ₹4,499</p>
+          </article>
+
+          <article class="device-card">
+            <span class="offer-badge green">Popular</span>
+            <div class="device-visual watch-device" aria-hidden="true"></div>
+            <h3>Apple Watch SE</h3>
+            <p>From ₹29,900</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="impact-section">
+        <h2>Making a difference</h2>
+        <p class="section-copy">Here is a handful of the many stories about Jio's digital impact.</p>
+
+        <article class="impact-card home">
+          <div class="impact-image" aria-hidden="true"></div>
+          <h3>LTE reaches all the Dham</h3>
+          <p>Digital services helping people stay connected at sacred destinations.</p>
+          <a href="#">Read more</a>
+        </article>
+
+        <article class="impact-card lake">
+          <div class="impact-image" aria-hidden="true"></div>
+          <h3>Expanding 4G networks in Kerala</h3>
+          <p>Connectivity stories from communities across the country.</p>
+          <a href="#">Read more</a>
+        </article>
+      </section>
+
+      <section class="myjio-cta">
+        <div class="myjio-lockup">
+          <span class="jio-logo">Jio</span>
+          <strong>MyJio</strong>
+        </div>
+        <h2>One app for everything Jio</h2>
+        <p>Recharge, pay bills, track usage, manage services, and get help.</p>
+        <a href="#guidance">Get MyJio</a>
+      </section>
+
+      <section class="guidance" id="guidance">
+        <h2>Need guidance?</h2>
+        <p>We would love to help you.</p>
+        <div class="help-actions">
+          <a href="#">Support</a>
+          <a href="#">Chat with us</a>
+          <a href="#">Call us</a>
+          <a href="#">Visit a store</a>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div class="footer-links">
+          <details>
+            <summary>Our offerings</summary>
+            <a href="#">Mobile</a>
+            <a href="#">JioFiber</a>
+            <a href="#">AirFiber</a>
+          </details>
+          <details>
+            <summary>Support</summary>
+            <a href="#">Track request</a>
+            <a href="#">Contact us</a>
+          </details>
+          <details>
+            <summary>Jio experience</summary>
+            <a href="#">Apps</a>
+            <a href="#">Devices</a>
+          </details>
+          <details>
+            <summary>Useful links</summary>
+            <a href="#">Recharge</a>
+            <a href="#">Locate store</a>
+          </details>
+        </div>
+
+        <div class="social-row" aria-label="Social links">
+          <strong>Connect with us</strong>
+          <span>f</span>
+          <span>𝕏</span>
+          <span>▶</span>
+          <span>◎</span>
+        </div>
+
+        <div class="download-row">
+          <strong>Download MyJio</strong>
+          <div>
+            <span class="store-badge">App Store</span>
+            <span class="store-badge">Google Play</span>
+          </div>
+        </div>
+
+        <p class="legal">Demo UI clone for layout practice. No real recharge, payment, order, or data collection is connected.</p>
+      </footer>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

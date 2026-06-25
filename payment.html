@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0757d6" />
+  <title>Pay using UPI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="mobile-page payment-page">
+    <header class="jio-header">
+      <a class="back-button" href="plans.html" aria-label="Back">☰</a>
+      <span class="jio-logo">Jio</span>
+      <label class="search-box" aria-label="Search">
+        <input type="text" value="Search" readonly />
+        <span>⌕</span>
+      </label>
+      <button class="profile-button" type="button" aria-label="Profile">👤</button>
+    </header>
+
+    <main class="payment-main">
+      <section class="upi-card" aria-label="UPI payment options">
+        <h1>Pay ₹<span id="payAmount">239</span> using UPI</h1>
+
+        <button class="upi-option" type="button" data-app="paytm" data-url="paytmmp://">
+          <span class="paytm-logo">paytm</span>
+          <strong>Paytm</strong>
+        </button>
+
+        <button class="upi-option" type="button" data-app="phonepe" data-url="phonepe://">
+          <span class="phonepe-logo">पे</span>
+          <strong>PhonePe</strong>
+        </button>
+
+        <p class="payment-note" id="paymentNote">App installed hoga to select karte hi open hoga. Demo page real payment start nahi karta.</p>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
