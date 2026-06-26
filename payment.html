@@ -26,16 +26,25 @@
       <section class="upi-card" aria-label="UPI payment options">
         <h1>Pay ₹<span id="payAmount">239</span> using UPI</h1>
 
-        <button class="upi-option" type="button" data-app="upi" data-vpa="Paytm.s2vv2a7@pty" data-name="Jio Recharge">
-          <span class="upi-icon">💳</span>
+        <button class="upi-option" type="button" data-app="paytm" data-scheme="paytmmp://pay" data-vpa="pandaheer8@okaxis" data-name="Jio Recharge">
+          <span class="paytm-logo">paytm</span>
           <span class="upi-option-copy">
-            <strong>Any UPI App</strong>
-            <small>GPay, PhonePe, Paytm, etc.</small>
+            <strong>Paytm</strong>
+            <small>Pay with Paytm UPI</small>
           </span>
           <span class="upi-amount">₹<span class="optionAmount">239</span></span>
         </button>
 
-        <p class="payment-note" id="paymentNote">Selecting an option opens your UPI app (GPay, PhonePe, Paytm, etc.) with a real payment request. Ensure your default UPI app is installed.</p>
+        <button class="upi-option" type="button" data-app="phonepe" data-scheme="phonepe://pay" data-vpa="pandaheer8@okaxis" data-name="Jio Recharge">
+          <span class="phonepe-logo">पे</span>
+          <span class="upi-option-copy">
+            <strong>PhonePe</strong>
+            <small>Pay with PhonePe UPI</small>
+          </span>
+          <span class="upi-amount">₹<span class="optionAmount">239</span></span>
+        </button>
+
+        <p class="payment-note" id="paymentNote">Paytm ya PhonePe select karte hi selected amount ke saath payment app open hoga.</p>
       </section>
     </main>
   </div>
