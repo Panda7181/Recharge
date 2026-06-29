@@ -244,15 +244,23 @@ button {
 }
 
 .mini-logo.jio-img {
-  background: url("https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Jio_logo.svg/240px-Jio_logo.svg.png") center / 75% no-repeat, var(--jio-red);
+  background: url("https://cdn.jio.com/content/logo/jio-logo-en.svg") center / 70% no-repeat, var(--jio-red);
+  background-color: var(--jio-red);
 }
 
 .mini-logo.airtel-img {
-  background: url("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Airtel_logo.svg/240px-Airtel_logo.svg.png") center / 75% no-repeat, #e90000;
+  background: url("https://assets.airtel.in/assets.new/resources/airtel-logo-icon.svg") center / 65% no-repeat, #eb0020;
+  background-color: #eb0020;
 }
 
 .mini-logo.vi-img {
-  background: url("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Vodafone_Idea_logo.svg/240px-Vodafone_Idea_logo.svg.png") center / 75% no-repeat, linear-gradient(135deg, #f8b400, #e53f80);
+  background: url("https://www.myvi.in/content/dam/icons/vi-logo-icon.svg") center / 60% no-repeat, linear-gradient(135deg, #ff6d00, #ec3f92);
+  background-color: #ff6d00;
+}
+
+.mini-logo.bsnl-img {
+  background: url("https://www.bsnl.co.in/writereaddata/Portal/News/1604248719BSNL_Logo.png") center / 60% no-repeat, #0a4f9e;
+  background-color: #0a4f9e;
 }
 
 .mini-logo {
