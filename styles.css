@@ -210,57 +210,87 @@ button {
 
 .service-tabs {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0.5rem;
-  margin-bottom: 0.85rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.55rem;
+  margin-bottom: 0.9rem;
 }
 
 .service-tabs button {
   position: relative;
   display: grid;
+  min-width: 0;
+  min-height: 4.55rem;
   justify-items: center;
-  gap: 0.25rem;
-  border: 2px solid transparent;
-  border-radius: 0.85rem;
-  padding: 0.35rem 0.15rem;
+  align-content: center;
+  gap: 0.32rem;
+  border: 1px solid #e1eaf7;
+  border-radius: 0.95rem;
+  padding: 0.42rem 0.18rem;
   color: #526070;
-  background: transparent;
+  background: #fff;
   font-size: 0.67rem;
-  font-weight: 800;
+  font-weight: 900;
+  line-height: 1.05;
+  box-shadow: 0 5px 14px rgba(18, 74, 145, 0.06);
+}
+
+.service-tabs button:active {
+  transform: scale(0.98);
+}
+
+.service-tabs button:focus-visible {
+  outline: 2px solid rgba(7, 87, 214, 0.45);
+  outline-offset: 2px;
+}
+
+.mini-logo.jio-img {
+  background: url("https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Jio_logo.svg/240px-Jio_logo.svg.png") center / 75% no-repeat, var(--jio-red);
+}
+
+.mini-logo.airtel-img {
+  background: url("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Airtel_logo.svg/240px-Airtel_logo.svg.png") center / 75% no-repeat, #e90000;
+}
+
+.mini-logo.vi-img {
+  background: url("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Vodafone_Idea_logo.svg/240px-Vodafone_Idea_logo.svg.png") center / 75% no-repeat, linear-gradient(135deg, #f8b400, #e53f80);
 }
 
 .mini-logo {
   display: grid;
-  width: 2.15rem;
-  height: 2.15rem;
+  width: 2.35rem;
+  height: 2.35rem;
   place-items: center;
   border-radius: 50%;
   color: #fff;
-  font-size: 0.65rem;
+  font-size: 0.68rem;
   font-weight: 900;
+  letter-spacing: -0.03em;
   box-shadow: 0 8px 20px rgba(0, 48, 120, 0.12);
 }
 
 .service-tabs .active {
   color: #111827;
-  border-color: rgba(7, 87, 214, 0.22);
+  border-color: rgba(7, 87, 214, 0.42);
   background: #f2f7ff;
+  box-shadow: 0 9px 22px rgba(7, 87, 214, 0.14);
 }
 
 .service-tabs .active::after {
   position: absolute;
-  right: 0.28rem;
-  top: 0.22rem;
+  right: 0.3rem;
+  top: 0.28rem;
   display: grid;
-  width: 0.9rem;
-  height: 0.9rem;
+  width: 0.95rem;
+  height: 0.95rem;
   place-items: center;
+  border: 2px solid #fff;
   border-radius: 50%;
   color: #fff;
   background: var(--jio-blue);
   content: "✓";
   font-size: 0.58rem;
   font-weight: 900;
+  box-shadow: 0 4px 10px rgba(7, 87, 214, 0.22);
 }
 
 .red {
@@ -312,12 +342,20 @@ button {
 
 .number-box input {
   width: 100%;
-  height: 2.25rem;
+  height: 2.45rem;
   border: 1px solid #d5deee;
-  border-radius: 0.45rem;
+  border-radius: 0.55rem;
   outline: 0;
-  padding: 0 0.7rem;
-  font-size: 0.82rem;
+  padding: 0 0.75rem;
+  color: #172033;
+  background: #fff;
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+
+.number-box input:focus {
+  border-color: rgba(7, 87, 214, 0.55);
+  box-shadow: 0 0 0 3px rgba(7, 87, 214, 0.09);
 }
 
 .recharge-hint {
@@ -335,6 +373,16 @@ button {
   background: #eaf2ff;
 }
 
+.error-message {
+  color: #b42318;
+  background: #fff1f0;
+}
+
+.success-message {
+  color: #087443;
+  background: #e9f8ef;
+}
+
 .primary-cta {
   width: 100%;
   min-height: 2.7rem;
@@ -345,6 +393,10 @@ button {
   font-size: 0.9rem;
   font-weight: 900;
   box-shadow: 0 10px 24px rgba(7, 87, 214, 0.32);
+}
+
+.primary-cta:active {
+  transform: translateY(1px);
 }
 
 .quick-links {
@@ -1121,6 +1173,12 @@ button {
   font-size: 0.68rem;
   line-height: 1.45;
   text-align: center;
+}
+
+.payment-note a {
+  color: var(--jio-blue);
+  font-weight: 900;
+  text-decoration: underline;
 }
 
 @media (max-width: 430px) {
