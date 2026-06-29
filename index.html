@@ -44,19 +44,19 @@
         </div>
 
         <div class="service-tabs" aria-label="Choose mobile operator">
-          <button class="active" type="button" data-operator="Jio" aria-pressed="true">
-            <span class="mini-logo red">Jio</span>
+          <button class="active" type="button" data-operator="Jio" data-hint="Jio prepaid recharge selected. Enter mobile number to view plans." aria-pressed="true">
+            <span class="mini-logo jio-img"></span>
             Jio
           </button>
-          <button type="button" data-operator="Airtel" aria-pressed="false">
-            <span class="mini-logo coral">A</span>
+          <button type="button" data-operator="Airtel" data-hint="Airtel prepaid recharge selected. Enter mobile number to view plans." aria-pressed="false">
+            <span class="mini-logo airtel-img"></span>
             Airtel
           </button>
-          <button type="button" data-operator="Vi" aria-pressed="false">
-            <span class="mini-logo pink">Vi</span>
+          <button type="button" data-operator="Vi" data-hint="Vi prepaid recharge selected. Enter mobile number to view plans." aria-pressed="false">
+            <span class="mini-logo vi-img"></span>
             Vi
           </button>
-          <button type="button" data-operator="BSNL" aria-pressed="false">
+          <button type="button" data-operator="BSNL" data-hint="BSNL prepaid recharge selected. Enter mobile number to view plans." aria-pressed="false">
             <span class="mini-logo pale">B</span>
             BSNL
           </button>
@@ -64,13 +64,13 @@
 
         <div class="number-box">
           <div class="plan-toggle">
-            <button class="selected" type="button">Prepaid</button>
-            <button type="button">Postpaid</button>
+            <button class="selected" type="button" data-plan="prepaid" aria-pressed="true">Prepaid</button>
+            <button type="button" data-plan="postpaid" aria-pressed="false">Postpaid</button>
           </div>
-          <input id="mobileNumber" type="tel" inputmode="numeric" maxlength="10" placeholder="Enter mobile number" aria-label="Enter mobile number" />
+          <input id="mobileNumber" type="tel" inputmode="numeric" autocomplete="tel" maxlength="10" placeholder="Enter mobile number" aria-label="Enter mobile number" />
         </div>
 
-        <p class="recharge-hint" id="rechargeHint">Recharge with ₹239 or above to unlock 5G unlimited.</p>
+        <p class="recharge-hint" id="rechargeHint" aria-live="polite">Recharge with ₹239 or above to unlock 5G unlimited.</p>
         <button class="primary-cta" id="rechargeButton" type="button">Recharge</button>
       </section>
 
