@@ -171,22 +171,26 @@ upiOptions.forEach((option) => {
     const name = option.dataset.name || "Jio Recharge";
     const cleanedAmount = amount.replace(/[^\d.]/g, "");
     const rechargeFor = pageNumber || "selected number";
-    const upiLink = `${paymentScheme}?pa=${encodeURIComponent(vpa)}&pn=${encodeURIComponent(name)}&am=${encodeURIComponent(cleanedAmount)}&cu=INR&tn=${encodeURIComponent("Recharge " + rechargeFor)}`;
+    const isAmountEditable = option.dataset.editableAmount === "true";
+    const upiParams = new URLSearchParams({
+      pa: vpa,
+      pn: name,
+      cu: "INR",
+      tn: "Recharge " + rechargeFor,
+    });
 
-    const clickedAt = Date.now();
+    if (!isAmountEditable) {
+      upiParams.set("am", cleanedAmount);
+    }
 
-    const iframe = document.createElement("iframe");
-    iframe.style.display = "none";
-    iframe.src = upiLink;
-    document.body.appendChild(iframe);
+    const upiLink = `${paymentScheme}?${upiParams.toString()}`;
 
-    setTimeout(() => {
-      if (iframe.parentNode) {
-        document.body.removeChild(iframe);
-      }
-      if (Date.now() - clickedAt < 2000) {
-        window.location.href = upiLink;
-      }
-    }, 2000);
+    if (paymentNote) {
+      paymentNote.textContent = isAmountEditable
+        ? `${appName} me amount manually enter/edit karke pay karein.`
+        : `${appName} selected amount ke saath open ho raha hai.`;
+    }
+
+    window.location.href = upiLink;
   });
 });
