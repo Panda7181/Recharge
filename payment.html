@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#0757d6" />
-  <title>Pay using UPI</title>
+  <title>Pay with UPI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -12,31 +12,55 @@
 </head>
 <body>
   <div class="mobile-page payment-page">
-    <header class="jio-header">
+    <header class="payment-header">
       <a class="back-button" href="plans.html" aria-label="Back">☰</a>
-      <span class="jio-logo">Jio</span>
-      <label class="search-box" aria-label="Search">
-        <input type="text" value="Search" readonly />
-        <span>⌕</span>
-      </label>
+      <span class="header-logo">Pay with UPI</span>
       <button class="profile-button" type="button" aria-label="Profile">👤</button>
     </header>
 
     <main class="payment-main">
-      <section class="upi-card" aria-label="UPI payment options">
-        <h1>Pay ₹<input type="text" id="payAmount" value="239" inputmode="numeric" pattern="[0-9]*" /> using UPI</h1>
+      <!-- Amount Payable Section -->
+      <section class="amount-section">
+        <div class="amount-header">
+          <h2>Amount Payable</h2>
+          <button class="details-toggle" id="detailsToggle" type="button" aria-expanded="false">
+            Details ▼
+          </button>
+        </div>
+        <div class="amount-display">
+          <span class="currency">₹</span>
+          <input type="text" id="payAmount" value="239" inputmode="numeric" pattern="[0-9]*" />
+        </div>
+        <div class="details-panel" id="detailsPanel" style="display: none;">
+          <div class="detail-row">
+            <span>Mobile Number</span>
+            <span id="detailNumber">8102771005</span>
+          </div>
+          <div class="detail-row">
+            <span>Operator</span>
+            <span id="detailOperator">Jio</span>
+          </div>
+          <div class="detail-row">
+            <span>Plan</span>
+            <span>Special Recharge</span>
+          </div>
+        </div>
+      </section>
 
-        <button class="upi-option" type="button" data-app="paytm" data-scheme="paytmmp://pay" data-vpa="Paytm.s2vv2a7@pty" data-name="Jio Recharge">
-          <span class="paytm-logo"><img src="assets/paytm-logo.svg" alt="Paytm" /></span>
-          <span class="upi-option-copy">
-            <strong>Paytm</strong>
-            <small>Pay with Paytm UPI</small>
-          </span>
-          <span class="upi-amount">₹<span class="optionAmount">239</span></span>
-        </button>
+      <!-- Special Offer Active Card -->
+      <section class="offer-card">
+        <div class="offer-badge">Special Offer Active</div>
+        <p class="offer-text">Get extra benefits on this recharge. Limited time offer!</p>
+      </section>
+
+      <!-- UPI Payment Methods -->
+      <section class="upi-section">
+        <h3 class="section-title">Pay using UPI</h3>
 
         <button class="upi-option" type="button" data-app="phonepe" data-scheme="phonepe://pay" data-vpa="Paytm.s2vv2a7@pty" data-name="Jio Recharge">
-          <span class="phonepe-logo"><img src="assets/phonepe-logo.svg" alt="PhonePe" /></span>
+          <span class="app-icon phonepe-icon">
+            <svg viewBox="0 0 24 24" width="28" height="28"><rect x="2" y="2" width="20" height="20" rx="4" fill="#5f259f"/><path fill="#fff" d="M7 17V7l5 5-5 5zm8 0V7l-5 5 5 5z"/></svg>
+          </span>
           <span class="upi-option-copy">
             <strong>PhonePe</strong>
             <small>Pay with PhonePe UPI</small>
@@ -44,11 +68,89 @@
           <span class="upi-amount">₹<span class="optionAmount">239</span></span>
         </button>
 
-        <p class="payment-note" id="paymentNote">Select app to pay. You can edit amount before paying.</p>
+        <button class="upi-option" type="button" data-app="paytm" data-scheme="paytmmp://pay" data-vpa="Paytm.s2vv2a7@pty" data-name="Jio Recharge">
+          <span class="app-icon paytm-icon">
+            <svg viewBox="0 0 24 24" width="28" height="28"><rect x="2" y="2" width="20" height="20" rx="4" fill="#00baf2"/><path fill="#fff" d="M8 12h8v1.5H8V12zm0 2.5h8v1.5H8V14.5zM12 7l-4 6h3v3h2v-3h3z"/></svg>
+          </span>
+          <span class="upi-option-copy">
+            <strong>Paytm</strong>
+            <small>Pay with Paytm UPI</small>
+          </span>
+          <span class="upi-amount">₹<span class="optionAmount">239</span></span>
+        </button>
+
+        <button class="upi-option" type="button" data-app="qr" data-scheme="qr" data-vpa="Paytm.s2vv2a7@pty" data-name="Jio Recharge">
+          <span class="app-icon qr-icon">
+            <svg viewBox="0 0 24 24" width="28" height="28"><path fill="#111827" d="M3 3h6v6H3V3zm2 2v2h2V5H5zm8-2h6v6h-6V3zm2 2v2h2V5h-2zM3 13h6v6H3v-6zm2 2v2h2v-2H5zm13-2h1v1h-1v-1zm-3 0h1v1h-1v-1zm-1 1h1v1h-1v-1zm2 2h1v1h-1v-1zm-1 1h1v1h-1v-1zm-2 0h1v1h-1v-1zm2-2h1v1h-1v-1zm-3 0h1v1h-1v-1zm-1 1h1v1h-1v-1zm3-3h1v1h-1v-1zm-1 1h1v1h-1v-1zm2-2h1v1h-1v-1zm-1 1h1v1h-1v-1zm2-2h1v1h-1v-1zm-3 3h1v1h-1v-1zm3 0h1v1h-1v-1zM15 15h6v6h-6v-6zm2 2v2h2v-2h-2zM7 15h6v6H7v-6zm2 2v2h2v-2H9z"/></svg>
+          </span>
+          <span class="upi-option-copy">
+            <strong>Pay via QR</strong>
+            <small>Scan & Pay using any UPI app</small>
+          </span>
+          <span class="upi-amount">₹<span class="optionAmount">239</span></span>
+        </button>
       </section>
+
+      <!-- Alternative Payment Section -->
+      <section class="alternative-section">
+        <h3 class="section-title">Other Payment Options</h3>
+        <div class="alt-options">
+          <button class="alt-option" type="button">
+            <span class="alt-icon">💳</span>
+            <span>Credit / Debit Card</span>
+          </button>
+          <button class="alt-option" type="button">
+            <span class="alt-icon">🏦</span>
+            <span>Net Banking</span>
+          </button>
+          <button class="alt-option" type="button">
+            <span class="alt-icon">📱</span>
+            <span>Wallet</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Payment Verification Status -->
+      <section class="verification-section" id="verificationSection" style="display: none;">
+        <div class="status-card" id="statusCard">
+          <div class="status-icon" id="statusIcon">⏳</div>
+          <h4 class="status-title" id="statusTitle">Payment Verification Pending</h4>
+          <p class="status-message" id="statusMessage">We are verifying your payment with the bank. Please wait...</p>
+          <div class="progress-bar" id="progressBar" style="display: none;">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Bottom Branding -->
+      <footer class="payment-footer">
+        <div class="footer-brand">
+          <span class="brand-lockup">
+            <strong>Recharge</strong>
+          </span>
+          <p class="footer-text">Secure payments powered by UPI</p>
+        </div>
+      </footer>
     </main>
   </div>
 
+  <!-- QR Modal -->
+  <div class="qr-modal" id="qrModal" style="display: none;">
+    <div class="qr-modal-content">
+      <div class="qr-modal-header">
+        <h3>Scan & Pay</h3>
+        <button class="qr-close" id="qrClose" type="button">✕</button>
+      </div>
+      <div class="qr-code-wrapper" id="qrCodeWrapper">
+        <canvas id="qrCanvas"></canvas>
+      </div>
+      <p class="qr-amount">Amount: ₹<span id="qrAmount">239</span></p>
+      <p class="qr-instruction">Open any UPI app and scan this QR code</p>
+      <button class="qr-download" type="button">Save QR Image</button>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
