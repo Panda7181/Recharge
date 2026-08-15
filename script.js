@@ -136,15 +136,30 @@ planRechargeButtons.forEach((button) => {
 });
 
   if (payAmount) {
-    const params = new URLSearchParams(window.location.search);
-    const amount = getSafeAmount(params.get("amount") || getSavedAmount());
+    const updateAmountDisplay = (raw) => {
+      const amount = getSafeAmount(raw);
+      saveSelectedAmount(amount);
+      if (payAmount.value !== undefined) {
+        payAmount.value = amount;
+      } else {
+        payAmount.textContent = amount;
+      }
+      upiOptionAmounts.forEach((item) => {
+        item.textContent = amount;
+      });
+      document.title = `Pay ₹${amount} using UPI`;
+    };
 
-    saveSelectedAmount(amount);
-    payAmount.textContent = amount;
-    upiOptionAmounts.forEach((item) => {
-      item.textContent = amount;
+    payAmount.addEventListener("input", () => {
+      updateAmountDisplay(payAmount.value);
     });
-    document.title = `Pay ₹${amount} using UPI`;
+
+    payAmount.addEventListener("blur", () => {
+      updateAmountDisplay(payAmount.value);
+    });
+
+    const params = new URLSearchParams(window.location.search);
+    updateAmountDisplay(params.get("amount") || getSavedAmount());
   }
 
 upiOptions.forEach((option) => {
@@ -152,7 +167,7 @@ upiOptions.forEach((option) => {
     const amount = String(payAmount?.value?.trim() || payAmount?.textContent?.trim() || getSafeAmount(getSavedAmount()));
     const appName = option.querySelector("strong")?.textContent || "UPI app";
     const paymentScheme = option.dataset.scheme || "upi://pay";
-    const vpa = option.dataset.vpa || "Paytm.s2vv2a7@pty";
+    const vpa = option.dataset.vpa || "YOUR_UPI_ID@upi";
     const name = option.dataset.name || "Jio Recharge";
     const cleanedAmount = amount.replace(/[^\d.]/g, "");
     const rechargeFor = pageNumber || "selected number";
