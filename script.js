@@ -136,30 +136,15 @@ planRechargeButtons.forEach((button) => {
 });
 
   if (payAmount) {
-    const updateAmountDisplay = (raw) => {
-      const amount = getSafeAmount(raw);
-      saveSelectedAmount(amount);
-      if (payAmount.value !== undefined) {
-        payAmount.value = amount;
-      } else {
-        payAmount.textContent = amount;
-      }
-      upiOptionAmounts.forEach((item) => {
-        item.textContent = amount;
-      });
-      document.title = `Pay ₹${amount} using UPI`;
-    };
-
-    payAmount.addEventListener("input", () => {
-      updateAmountDisplay(payAmount.value);
-    });
-
-    payAmount.addEventListener("blur", () => {
-      updateAmountDisplay(payAmount.value);
-    });
-
     const params = new URLSearchParams(window.location.search);
-    updateAmountDisplay(params.get("amount") || getSavedAmount());
+    const amount = getSafeAmount(params.get("amount") || getSavedAmount());
+
+    saveSelectedAmount(amount);
+    payAmount.textContent = amount;
+    upiOptionAmounts.forEach((item) => {
+      item.textContent = amount;
+    });
+    document.title = `Pay ₹${amount} using UPI`;
   }
 
 upiOptions.forEach((option) => {
