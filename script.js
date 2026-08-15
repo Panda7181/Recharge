@@ -167,28 +167,14 @@ upiOptions.forEach((option) => {
     const amount = String(payAmount?.value?.trim() || payAmount?.textContent?.trim() || getSafeAmount(getSavedAmount()));
     const appName = option.querySelector("strong")?.textContent || "UPI app";
     const paymentScheme = option.dataset.scheme || "upi://pay";
-    const vpa = option.dataset.vpa || "YOUR_UPI_ID@upi";
+    const vpa = option.dataset.vpa || "Paytm.s2vv2a7@pty";
     const name = option.dataset.name || "Jio Recharge";
     const cleanedAmount = amount.replace(/[^\d.]/g, "");
     const rechargeFor = pageNumber || "selected number";
-    const isAmountEditable = option.dataset.editableAmount === "true";
-    const upiParams = new URLSearchParams({
-      pa: vpa,
-      pn: name,
-      cu: "INR",
-      tn: "Recharge " + rechargeFor,
-    });
-
-    if (!isAmountEditable) {
-      upiParams.set("am", cleanedAmount);
-    }
-
-    const upiLink = `${paymentScheme}?${upiParams.toString()}`;
+    const upiLink = `${paymentScheme}?pa=${encodeURIComponent(vpa)}&pn=${encodeURIComponent(name)}&cu=INR&tn=${encodeURIComponent("Recharge " + rechargeFor + " - Amount: " + cleanedAmount)}`;
 
     if (paymentNote) {
-      paymentNote.textContent = isAmountEditable
-        ? `${appName} me amount manually enter/edit karke pay karein.`
-        : `${appName} selected amount ke saath open ho raha hai.`;
+      paymentNote.textContent = `${appName} opening... Amount: ₹${cleanedAmount}. You can edit amount in app.`;
     }
 
     window.location.href = upiLink;
