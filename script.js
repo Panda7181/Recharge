@@ -220,27 +220,11 @@ if (payAmount) {
 }
 
 // UPI Deep Link Generator
-// Generates standard UPI payment intent URLs following the UPI specification
-// Format: upi://pay?pa=<VPA>&pn=<payeeName>&am=<amount>&cu=<currency>&tn=<transactionNote>
+// Uses standard UPI payment intent format:
+// upi://pay?pa=<VPA>&pn=<payeeName>&am=<amount>&cu=<currency>&tn=<transactionNote>
 const generateUpiLink = (vpa, payeeName, amount, currency = "INR", transactionNote = "") => {
-  const params = new URLSearchParams({
-    pa: vpa,
-    pn: payeeName,
-    cu: currency,
-  });
-
-  // Amount is optional in UPI deep links (user can edit in app)
-  // Include it for convenience, but user can modify in their UPI app
-  if (amount && amount !== "0") {
-    params.set("am", amount);
-  }
-
-  // Transaction note for reference
-  if (transactionNote) {
-    params.set("tn", transactionNote);
-  }
-
-  return `upi://pay?${params.toString()}`;
+  const cleanedAmount = amount ? parseFloat(amount.replace(/[^\d.]/g, "")).toFixed(2) : "0.00";
+  return `upi://pay?pa=${encodeURIComponent(vpa)}&pn=${encodeURIComponent(payeeName)}&am=${cleanedAmount}&cu=${encodeURIComponent(currency)}&tn=${encodeURIComponent(transactionNote)}`;
 };
 
 // UPI Option Click Handler
