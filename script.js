@@ -153,13 +153,6 @@ const detailsToggle = document.querySelector("#detailsToggle");
 const detailsPanel = document.querySelector("#detailsPanel");
 const detailNumber = document.querySelector("#detailNumber");
 const detailOperator = document.querySelector("#detailOperator");
-const verificationSection = document.querySelector("#verificationSection");
-const statusCard = document.querySelector("#statusCard");
-const statusIcon = document.querySelector("#statusIcon");
-const statusTitle = document.querySelector("#statusTitle");
-const statusMessage = document.querySelector("#statusMessage");
-const progressBar = document.querySelector("#progressBar");
-const progressFill = document.querySelector("#progressFill");
 const qrModal = document.querySelector("#qrModal");
 const qrClose = document.querySelector("#qrClose");
 const qrCanvas = document.querySelector("#qrCanvas");
@@ -229,7 +222,7 @@ const generateUpiLink = (vpa, payeeName, amount, currency = "INR", transactionNo
 
 // UPI Option Click Handler
 upiOptions.forEach((option) => {
-  option.addEventListener("click", async () => {
+  option.addEventListener("click", () => {
     const amount = getSafeAmount(payAmount?.value || getSavedAmount());
     const appName = option.querySelector("strong")?.textContent || "UPI app";
     const scheme = option.dataset.scheme || "upi://pay";
@@ -237,21 +230,10 @@ upiOptions.forEach((option) => {
     const name = option.dataset.name || UPI_CONFIG.payeeName;
     const app = option.dataset.app;
 
-    // Prevent double-clicks
-    if (option.classList.contains("loading")) {
-      return;
-    }
-
     // Special handling for QR code
     if (app === "qr") {
       showQrModal(amount, vpa);
       return;
-    }
-
-    // Set loading state
-    option.classList.add("loading");
-    if (paymentNote) {
-      paymentNote.textContent = `Opening ${appName}... Please complete payment in the app.`;
     }
 
     // Generate UPI deep link
@@ -262,8 +244,6 @@ upiOptions.forEach((option) => {
     // For app-specific schemes, append UPI params
     let finalLink = upiLink;
     if (scheme !== "upi://pay") {
-      // App-specific schemes like paytmmp://pay or phonepe://pay
-      // Append UPI params as query string
       finalLink = `${scheme}?${new URLSearchParams({
         pa: vpa,
         pn: name,
@@ -273,170 +253,10 @@ upiOptions.forEach((option) => {
       }).toString()}`;
     }
 
-    // Open UPI app via deep link
-    // Using iframe approach for better mobile compatibility
-    const clickedAt = Date.now();
-
-    try {
-      // Attempt to open via iframe (more reliable on mobile)
-      const iframe = document.createElement("iframe");
-      iframe.style.display = "none";
-      iframe.src = finalLink;
-      document.body.appendChild(iframe);
-
-      // Fallback to window.location after timeout
-      setTimeout(() => {
-        if (iframe.parentNode) {
-          document.body.removeChild(iframe);
-        }
-        // Only redirect if click was recent (user didn't return quickly)
-        if (Date.now() - clickedAt < 2500) {
-          window.location.href = finalLink;
-        }
-      }, 1500);
-    } catch (error) {
-      // Fallback to direct navigation
-      window.location.href = finalLink;
-    }
-
-    // Start payment verification monitoring
-    startPaymentVerification(amount, appName, option);
+    // Open UPI app
+    window.location.href = finalLink;
   });
 });
-
-// Payment Verification Flow
-// Monitors when user returns from UPI app and simulates verification
-// In production, replace this with actual backend verification API call
-let verificationTimeout = null;
-let visibilityChangeHandler = null;
-
-const startPaymentVerification = (amount, appName, optionElement) => {
-  // Clear any existing verification
-  if (verificationTimeout) {
-    clearTimeout(verificationTimeout);
-  }
-  if (visibilityChangeHandler) {
-    document.removeEventListener("visibilitychange", visibilityChangeHandler);
-  }
-
-  // Show pending state
-  showVerificationStatus("pending", "Payment Verification Pending", 
-    `We are verifying your ₹${amount} payment with the bank via ${appName}. Please wait...`);
-
-  // Monitor page visibility (user returns from UPI app)
-  visibilityChangeHandler = () => {
-    if (document.visibilityState === "visible") {
-      // User returned to the page
-      verifyPayment(amount, appName, optionElement);
-    }
-  };
-  document.addEventListener("visibilitychange", visibilityChangeHandler);
-
-  // Also set a timeout for verification (simulate backend check)
-  verificationTimeout = setTimeout(() => {
-    verifyPayment(amount, appName, optionElement);
-  }, 30000); // 30 seconds timeout
-};
-
-// Simulate payment verification
-// In production, this should call your backend API to check transaction status
-const verifyPayment = async (amount, appName, optionElement) => {
-  // Clean up listeners
-  if (verificationTimeout) {
-    clearTimeout(verificationTimeout);
-    verificationTimeout = null;
-  }
-  if (visibilityChangeHandler) {
-    document.removeEventListener("visibilitychange", visibilityChangeHandler);
-    visibilityChangeHandler = null;
-  }
-
-  // Remove loading state from button
-  if (optionElement) {
-    optionElement.classList.remove("loading");
-  }
-
-  // Show loading state during verification
-  showVerificationStatus("loading", "Verifying Payment...", 
-    `Checking payment status with bank for ₹${amount}...`);
-
-  // Simulate API call delay
-  await new Promise(resolve => setTimeout(resolve, 2000));
-
-  // ==========================================
-  // PRODUCTION NOTE:
-  // Replace this simulation with actual backend verification.
-  // Call your payment gateway API to check transaction status.
-  // Example:
-  // const response = await fetch('/api/verify-payment', {
-  //   method: 'POST',
-  //   body: JSON.stringify({ vpa: UPI_CONFIG.vpa, amount, txnId: ... })
-  // });
-  // const result = await response.json();
-  // ==========================================
-
-  // For demo: randomly succeed or fail
-  // In production, use actual verification result
-  const isSuccess = Math.random() > 0.3; // 70% success rate for demo
-
-  if (isSuccess) {
-    showVerificationStatus("success", "Payment Successful!", 
-      `Your payment of ₹${amount} via ${appName} has been verified. Thank you!`);
-    
-    // Disable all payment options after success
-    document.querySelectorAll(".upi-option, .alt-option").forEach(btn => {
-      btn.disabled = true;
-      btn.style.opacity = "0.6";
-      btn.style.pointerEvents = "none";
-    });
-  } else {
-    showVerificationStatus("failed", "Payment Failed or Pending", 
-      `We could not verify your payment of ₹${amount}. Please try again or contact support.`);
-  }
-};
-
-// Show verification status with animation
-const showVerificationStatus = (type, title, message) => {
-  if (!verificationSection || !statusCard) return;
-
-  // Reset classes
-  statusCard.className = "status-card " + type;
-
-  // Set content
-  const icons = {
-    pending: "⏳",
-    loading: "🔄",
-    success: "✅",
-    failed: "❌"
-  };
-
-  statusIcon.textContent = icons[type] || "⏳";
-  statusTitle.textContent = title;
-  statusMessage.textContent = message;
-
-  // Show/hide progress bar
-  if (type === "loading" && progressBar && progressFill) {
-    progressBar.style.display = "block";
-    progressFill.style.width = "0%";
-    
-    // Animate progress
-    let progress = 0;
-    const interval = setInterval(() => {
-      progress += 10;
-      progressFill.style.width = progress + "%";
-      if (progress >= 90) {
-        clearInterval(interval);
-      }
-    }, 300);
-  } else if (progressBar) {
-    progressBar.style.display = "none";
-    progressFill.style.width = "0%";
-  }
-
-  // Show section with animation
-  verificationSection.style.display = "block";
-  verificationSection.scrollIntoView({ behavior: "smooth", block: "center" });
-};
 
 // ==========================================
 // QR Code Modal
