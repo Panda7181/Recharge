@@ -1434,76 +1434,6 @@ button {
   line-height: 1;
 }
 
-/* Verification Section */
-.verification-section {
-  margin: 1.25rem 0.55rem 0;
-}
-
-.status-card {
-  padding: 1.25rem;
-  border-radius: 1rem;
-  text-align: center;
-  background: #fff;
-  box-shadow: var(--shadow);
-  border: 2px solid transparent;
-}
-
-.status-card.pending {
-  border-color: #fbbf24;
-  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
-}
-
-.status-card.loading {
-  border-color: #3b82f6;
-  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-}
-
-.status-card.success {
-  border-color: #10b981;
-  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
-}
-
-.status-card.failed {
-  border-color: #ef4444;
-  background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
-}
-
-.status-icon {
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-  line-height: 1;
-}
-
-.status-title {
-  margin: 0 0 0.35rem;
-  font-size: 1rem;
-  font-weight: 800;
-  color: #111827;
-  letter-spacing: -0.02em;
-}
-
-.status-message {
-  margin: 0;
-  color: #4b5563;
-  font-size: 0.78rem;
-  line-height: 1.45;
-}
-
-.progress-bar {
-  margin-top: 0.85rem;
-  height: 6px;
-  border-radius: 999px;
-  background: #e5e7eb;
-  overflow: hidden;
-}
-
-.progress-fill {
-  height: 100%;
-  border-radius: 999px;
-  background: var(--jio-blue);
-  transition: width 0.3s ease;
-}
-
 /* QR Modal */
 .qr-modal {
   position: fixed;
@@ -1648,16 +1578,6 @@ button {
   font-weight: 700;
   text-align: center;
   line-height: 1.4;
-}
-
-/* Loading Animation */
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-.status-card.loading .status-icon {
-  animation: spin 1s linear infinite;
-  display: inline-block;
 }
 
 /* Responsive */
