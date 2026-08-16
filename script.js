@@ -153,10 +153,13 @@ const detailsToggle = document.querySelector("#detailsToggle");
 const detailsPanel = document.querySelector("#detailsPanel");
 const detailNumber = document.querySelector("#detailNumber");
 const detailOperator = document.querySelector("#detailOperator");
-const qrModal = document.querySelector("#qrModal");
-const qrClose = document.querySelector("#qrClose");
 const qrCanvas = document.querySelector("#qrCanvas");
 const qrAmount = document.querySelector("#qrAmount");
+const qrVpa = document.querySelector("#qrVpa");
+const qrModal = document.querySelector("#qrModal");
+const qrClose = document.querySelector("#qrClose");
+const qrCanvasModal = document.querySelector("#qrCanvasModal");
+const qrAmountModal = document.querySelector("#qrAmountModal");
 const qrDownload = document.querySelector(".qr-download");
 
 // Payment back button
@@ -189,6 +192,9 @@ if (payAmount) {
       qrAmount.textContent = amount;
     }
     document.title = `Pay ₹${amount} using UPI`;
+
+    // Update inline QR code
+    updateInlineQrCode(amount);
   };
 
   payAmount.addEventListener("input", () => {
@@ -201,7 +207,8 @@ if (payAmount) {
 
   // Set initial amount from URL or localStorage
   const params = new URLSearchParams(window.location.search);
-  updateAmountDisplay(params.get("amount") || getSavedAmount());
+  const initialAmount = getSafeAmount(params.get("amount") || getSavedAmount());
+  updateAmountDisplay(initialAmount);
 
   // Update details panel
   if (detailNumber) {
@@ -211,6 +218,48 @@ if (payAmount) {
     detailOperator.textContent = operator;
   }
 }
+
+// Update inline QR code at bottom of payment page
+const updateInlineQrCode = (amount) => {
+  if (!qrCanvas) return;
+
+  const vpa = UPI_CONFIG.vpa;
+  const name = UPI_CONFIG.payeeName;
+  const rechargeFor = pageNumber || "selected number";
+  const transactionNote = `${UPI_CONFIG.transactionPrefix} ${rechargeFor}`;
+  const qrData = generateUpiLink(vpa, name, amount, UPI_CONFIG.currency, transactionNote);
+
+  // Clear previous QR
+  qrCanvas.innerHTML = "";
+
+  // Generate QR code
+  if (typeof QRCode !== "undefined") {
+    try {
+      new QRCode(qrCanvas, {
+        text: qrData,
+        width: 180,
+        height: 180,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.M,
+      });
+    } catch (e) {
+      qrCanvas.parentElement.innerHTML = `
+        <div style="padding: 2rem; text-align: center; word-break: break-all; font-size: 0.75rem; color: #666;">
+          <p style="font-weight: 700; margin-bottom: 0.5rem;">Scan with UPI App</p>
+          <p style="font-family: monospace;">${qrData}</p>
+        </div>
+      `;
+    }
+  } else {
+    qrCanvas.parentElement.innerHTML = `
+      <div style="padding: 2rem; text-align: center; word-break: break-all; font-size: 0.75rem; color: #666;">
+        <p style="font-weight: 700; margin-bottom: 0.5rem;">Scan with UPI App</p>
+        <p style="font-family: monospace;">${qrData}</p>
+      </div>
+    `;
+  }
+};
 
 // UPI Deep Link Generator
 // Uses standard UPI payment intent format:
@@ -262,7 +311,7 @@ upiOptions.forEach((option) => {
 // QR Code Modal
 // ==========================================
 const showQrModal = (amount, vpa) => {
-  if (!qrModal || !qrCanvas) return;
+  if (!qrModal || !qrCanvasModal) return;
 
   // Show modal
   qrModal.style.display = "flex";
@@ -274,12 +323,12 @@ const showQrModal = (amount, vpa) => {
   const qrData = generateUpiLink(vpa, UPI_CONFIG.payeeName, amount, UPI_CONFIG.currency, transactionNote);
 
   // Clear previous QR
-  qrCanvas.innerHTML = "";
+  qrCanvasModal.innerHTML = "";
 
   // Generate QR code using qrcode library
   if (typeof QRCode !== "undefined") {
     try {
-      new QRCode(qrCanvas, {
+      new QRCode(qrCanvasModal, {
         text: qrData,
         width: 200,
         height: 200,
@@ -289,7 +338,7 @@ const showQrModal = (amount, vpa) => {
       });
     } catch (e) {
       // Fallback: show text if QR generation fails
-      qrCanvas.parentElement.innerHTML = `
+      qrCanvasModal.parentElement.innerHTML = `
         <div style="padding: 2rem; text-align: center; word-break: break-all; font-size: 0.75rem; color: #666;">
           <p style="font-weight: 700; margin-bottom: 0.5rem;">Scan with UPI App</p>
           <p style="font-family: monospace;">${qrData}</p>
@@ -298,7 +347,7 @@ const showQrModal = (amount, vpa) => {
     }
   } else {
     // Fallback if QR library not loaded
-    qrCanvas.parentElement.innerHTML = `
+    qrCanvasModal.parentElement.innerHTML = `
       <div style="padding: 2rem; text-align: center; word-break: break-all; font-size: 0.75rem; color: #666;">
         <p style="font-weight: 700; margin-bottom: 0.5rem;">Scan with UPI App</p>
         <p style="font-family: monospace;">${qrData}</p>
@@ -307,8 +356,8 @@ const showQrModal = (amount, vpa) => {
   }
 
   // Update amount display
-  if (qrAmount) {
-    qrAmount.textContent = amount;
+  if (qrAmountModal) {
+    qrAmountModal.textContent = amount;
   }
 
   // Store QR data for download
@@ -337,11 +386,10 @@ if (qrModal) {
 if (qrDownload) {
   qrDownload.addEventListener("click", () => {
     const qrData = qrModal?.dataset.qrData;
-    if (qrData && qrCanvas) {
-      // Create download link
+    if (qrData && qrCanvasModal) {
       const link = document.createElement("a");
       link.download = `upi-qr-${Date.now()}.png`;
-      link.href = qrCanvas.toDataURL("image/png");
+      link.href = qrCanvasModal.toDataURL("image/png");
       link.click();
     }
   });
